@@ -1,17 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <script>
+        function FORM_VALIDATION() {
+            var fullname = 
+                document.forms["RegForm"]["FullName"];
+            var username = 
+                document.forms["RegForm"]["UserName"];
+            var email = 
+                document.forms["RegForm"]["Email"];
+            var phone = 
+                document.forms["RegForm"]["Phone"];
+            var password = 
+                document.forms["RegForm"]["Password"];
+            var confirmPass = 
+                document.forms["RegForm"]["Confirm"];
+            
+
+                var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (!filter.test(email.value)) {
+                    alert("Please provide a valid email address");
+                    email.focus();
+                    return false;
+                }
+
+                var phoneno = /^\d{10}$/;
+                if(!phoneno.test(phone.value)){
+                    alert("give correct number");
+                    phone.focus();
+                    return false;
+                }
+
+                if( (password.value).length<8 || (password.value).length>15)
+                {
+                    alert("Please enter a password between 8 to 15 characters");
+                    password.focus();
+                    return false;
+                }
+
+                var regularExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+                if(!regularExpression.test(password.value)){
+                    alert("pasword should contain atleast 1 number 1 special character 1 uppercase character 1 lowercase character")
+                    password.focus();
+                    return false;
+                }
+                if( (confirmPass.value)!=(password.value) ){
+                    alert("Confirmation password should be the same as password")
+                    confirmPass.focus();
+                    return false;
+                }
+                if( (username.value)==(password.value) ){
+                    alert("password should be different from user name")
+                    password.focus();
+                    return false;
+                }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration form</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+    <div class="container">
+        <div class="title">Registration</div>
+            <form  action="/submit.php" name="RegForm" onsubmit="return FORM_VALIDATION()" method="POST">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" name="FullName" placeholder="Enter Your Name " required >
+                    </div>
 
+                    <div class="input-box">
+                        <span class="details">User Name</span>
+                        <input type="text" name="Username" placeholder="Enter Your User Name " required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Email</span>
+                        <input type="text" name="Email" placeholder="Enter Your Email ID " required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Phone Number</span>
+                        <input type="text" name="Phone" placeholder="Enter Your Number " required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" name="Password" placeholder="Enter Your Password " required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Confirm Password</span>
+                        <input type="password" name="Confirm" placeholder="Confirm Your Password " required>
+                    </div>
+                </div>
+
+                <div class="Gender-Details">
+                    <span class="gender-title">Gender</span>
+                    <div class="category">
+                        <input type="radio" name ="gender">Male
+                        <input type="radio" name ="gender">Female
+                        <input type="radio" name ="gender">Prefer not to say
+                    </div>
+                </div>
+                <div class="button">
+                    <input type="submit" 
+                        value="send" name="Submit"/>
+
+                </div>
+            </form>
+    </div>
+</body>
 </html>
